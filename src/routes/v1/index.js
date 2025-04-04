@@ -6,6 +6,7 @@ const airlineController = require("../../controllers/airlineController");
 const flightController = require("../../controllers/flightController");
 const reviewController = require("../../controllers/reviewController");
 const bookingController = require("../../controllers/bookingController");
+const { createOrder, verifyPayment } = require("../../controllers/paymentController");
 
 router.get("/help", helpController.helpDetails);
 router.post("/airline", airlineController.createAirline);
@@ -27,4 +28,8 @@ router.delete("/review/:flightId", reviewController.destroyReview);
 router.post("/booking", bookingController.createBooking);
 router.get("/booking/:id/boardingPass", bookingController.getBoardingPass);
 router.delete("/booking/:id", bookingController.cancelBooking);
+
+router.post("/create-order", createOrder);
+router.post("/verify", verifyPayment);
+
 module.exports = router;

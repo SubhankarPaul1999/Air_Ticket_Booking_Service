@@ -1,5 +1,6 @@
 const Booking = require('../models/booking');
-const { publishToQueue } = require("../queue/producer");
+const { sendToQueue } = require('./messageQueueService');
+
 
 const createBooking = async (bookingData) => {
     try {
@@ -11,7 +12,7 @@ const createBooking = async (bookingData) => {
         }
         const response = await new Booking(newBooking).save();
          // Send booking details to RabbitMQ
-        await publishToQueue({ type: "NEW_BOOKING", data: bookingData });
+         await sendToQueue(bookingData);
         return response;
     } catch (err) {
         console.log(err);
